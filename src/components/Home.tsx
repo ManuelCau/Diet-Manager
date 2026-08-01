@@ -1,37 +1,67 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { SelectPersona } from "./SelectPersona";
 import { DayNavigator } from "../components/DayNavigator";
 import { MealCard } from "./UI/MealCard";
-
-const LISTA_PERSONE = [
-  { id: 1, nome: "Manuel" },
-  { id: 2, nome: "Anna" },
-  { id: 3, nome: "Silvano" },
-];
-
-// dati finti, stessa "forma" che avrà la risposta di Supabase
-const PASTO_FINTO = [
-  { id: 1, nome: "Pasta (media)", quantita: 70, unita: "g" },
-  { id: 2, nome: "Parmigiano", quantita: 60, unita: "g" },
-  { id: 3, nome: "Verdure (media)", quantita: 200, unita: "g" },
-];
+import { usePersone } from "../hooks/usePersone";
+import { useDietPlan } from "../hooks/useDietPlan";
 
 export function Home() {
-  const [personId, setPersonId] = useState(1);
+  const { persone, loading: loadingPersone } = usePersone();
+  const [personId, setPersonId] = useState<number | null>(null);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+
+  // appena arrivano le persone dal DB, seleziona la prima come default
+  const personaSelezionata =
+    persone.find((p) => p.id === personId) ?? persone[0];
+  const giornoId = selectedDayIndex + 1;
+
+  const {
+    righe,
+    loading: loadingPiano,
+    error,
+  } = useDietPlan(personaSelezionata?.nome ?? "", giornoId);
+
+  const pastiRaggruppati = useMemo(() => {
+    const gruppi = new Map<string, typeof righe>();
+    for (const riga of righe) {
+      const lista = gruppi.get(riga.tipo_pasto) ?? [];
+      lista.push(riga);
+      gruppi.set(riga.tipo_pasto, lista);
+    }
+    return gruppi;
+  }, [righe]);
+
+  if (loadingPersone) return <p>Caricamento persone...</p>;
 
   return (
     <div>
       <SelectPersona
-        selectedId={personId}
+        selectedId={personaSelezionata?.id}
         onSelect={setPersonId}
-        persone={LISTA_PERSONE}
+        persone={persone}
       />
       <DayNavigator
         selectedIndex={selectedDayIndex}
         onChange={setSelectedDayIndex}
       />
-      <MealCard mealType="Pranzo" items={PASTO_FINTO} />
+
+      {loadingPiano && <p>Caricamento pasti...</p>}
+      {error && <p>Errore: {error}</p>}
+
+      {!loadingPiano &&
+        !error &&
+        Array.from(pastiRaggruppati.entries()).map(([tipoPasto, alimenti]) => (
+          <MealCard
+            key={tipoPasto}
+            mealType={tipoPasto}
+            items={alimenti.map((r, i) => ({
+              id: i,
+              nome: r.alimento ?? "Pasto libero",
+              quantita: r.quantita ?? 0,
+              unita: r.unita_misura ?? "",
+            }))}
+          />
+        ))}
     </div>
   );
 }
