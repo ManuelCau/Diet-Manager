@@ -1,12 +1,11 @@
-/* import "./App.css";
- */ import { Button } from "./components/UI/Button";
+import { Home } from "./components/Home";
+import { Screen } from "./components/Screen";
 
 function App() {
   return (
-    <>
-      <Button buttonText="ciaoo" />
-    </>
+    <Screen>
+      <Home />
+    </Screen>
   );
 }
-
 export default App;
