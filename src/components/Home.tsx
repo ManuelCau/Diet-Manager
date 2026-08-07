@@ -4,13 +4,16 @@ import { DayNavigator } from "../components/DayNavigator";
 import { MealCard } from "./UI/MealCard";
 import { usePersone } from "../hooks/usePersone";
 import { useDietPlan } from "../hooks/useDietPlan";
+import { getTodayIndex } from "../timeRanges/days";
+import { getMealTypeCorrente } from "../timeRanges/mealTimeRanges";
 
 export function Home() {
   const { persone, loading: loadingPersone } = usePersone();
   const [personId, setPersonId] = useState<number | null>(null);
-  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(getTodayIndex());
 
-  // appena arrivano le persone dal DB, seleziona la prima come default
+  const mealTypeCorrente = getMealTypeCorrente();
+
   const personaSelezionata =
     persone.find((p) => p.id === personId) ?? persone[0];
   const giornoId = selectedDayIndex + 1;
@@ -60,6 +63,7 @@ export function Home() {
               quantita: r.quantita ?? 0,
               unita: r.unita_misura ?? "",
             }))}
+            defaultOpen={tipoPasto === mealTypeCorrente}
           />
         ))}
     </div>

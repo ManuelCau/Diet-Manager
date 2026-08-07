@@ -1,4 +1,4 @@
-import { GIORNI } from "../days";
+import { GIORNI } from "../timeRanges/days";
 
 interface DayNavigatorProps {
   selectedIndex: number;
