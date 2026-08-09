@@ -6,6 +6,7 @@ import { usePersone } from "../hooks/usePersone";
 import { useDietPlan } from "../hooks/useDietPlan";
 import { getTodayIndex } from "../timeRanges/days";
 import { getMealTypeCorrente } from "../timeRanges/mealTimeRanges";
+import { groupMealsByType } from "../groupMealByType";
 
 export function Home() {
   const { persone, loading: loadingPersone } = usePersone();
@@ -24,15 +25,7 @@ export function Home() {
     error,
   } = useDietPlan(personaSelezionata?.nome ?? "", giornoId);
 
-  const pastiRaggruppati = useMemo(() => {
-    const gruppi = new Map<string, typeof righe>();
-    for (const riga of righe) {
-      const lista = gruppi.get(riga.tipo_pasto) ?? [];
-      lista.push(riga);
-      gruppi.set(riga.tipo_pasto, lista);
-    }
-    return gruppi;
-  }, [righe]);
+  const pastiRaggruppati = useMemo(() => groupMealsByType(righe), [righe]);
 
   if (loadingPersone) return <p>Caricamento persone...</p>;
 
