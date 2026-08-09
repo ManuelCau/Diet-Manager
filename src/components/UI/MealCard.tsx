@@ -24,6 +24,7 @@ export function MealCard({
   return (
     <div className="bg-gray-800 rounded-lg p-4 my-4 flex flex-col gap-1">
       <button
+        aria-expanded={isOpen}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
