@@ -16,7 +16,7 @@ describe("groupMealsByType", () => {
     expect(risultato.get("CENA")).toHaveLength(1);
   });
 
-  it("restituisce una mappa vuota con un array vuoto", () => {
+  it("should return an empty array", () => {
     expect(groupMealsByType([]).size).toBe(0);
   });
 });

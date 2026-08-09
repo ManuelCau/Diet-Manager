@@ -9,17 +9,20 @@ const alimentiFinti = [
 ];
 
 describe("MealCard", () => {
-  it("è chiusa di default se defaultOpen non è specificato", () => {
+  it(" should be closed by default if defaultOpen is not specified", () => {
     render(<MealCard mealType="Pranzo" items={alimentiFinti} />);
-    expect(screen.getByRole("button")).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByRole("button")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
   });
 
-  it("è aperta di default quando defaultOpen è true", () => {
+  it("should be open by default when defaultOpen is true", () => {
     render(<MealCard mealType="Pranzo" items={alimentiFinti} defaultOpen />);
     expect(screen.getByRole("button")).toHaveAttribute("aria-expanded", "true");
   });
 
-  it("si apre dopo un click sull'header", async () => {
+  it("should open after a click on the header", async () => {
     const user = userEvent.setup();
     render(<MealCard mealType="Pranzo" items={alimentiFinti} />);
 
@@ -29,13 +32,11 @@ describe("MealCard", () => {
     await user.click(button);
 
     expect(button).toHaveAttribute("aria-expanded", "true");
-    // il contenuto è comunque presente nel DOM (per l'animazione),
-    // ma ora il testo è effettivamente presente e corretto
     expect(screen.getByText("Pasta")).toBeInTheDocument();
     expect(screen.getByText("Parmigiano")).toBeInTheDocument();
   });
 
-  it("si richiude al secondo click", async () => {
+  it("should close after a second click", async () => {
     const user = userEvent.setup();
     render(<MealCard mealType="Pranzo" items={alimentiFinti} defaultOpen />);
 

@@ -6,18 +6,18 @@ describe("getTodayIndex", () => {
     vi.useRealTimers();
   });
 
-  it("restituisce 0 per Lunedi", () => {
-    vi.setSystemTime(new Date("2026-01-05")); // un Lunedi
+  it("should return 0 for Monday", () => {
+    vi.setSystemTime(new Date("2026-01-05"));
     expect(getTodayIndex()).toBe(0);
   });
 
-  it("restituisce 6 per Domenica (non 0, come farebbe Date.getDay() da solo)", () => {
-    vi.setSystemTime(new Date("2026-01-04")); // una Domenica
+  it("should return 6 for Sunday ", () => {
+    vi.setSystemTime(new Date("2026-01-04"));
     expect(getTodayIndex()).toBe(6);
   });
 
-  it("restituisce 5 per Sabato", () => {
-    vi.setSystemTime(new Date("2026-01-03")); // un Sabato
+  it("should return 5 for Saturday", () => {
+    vi.setSystemTime(new Date("2026-01-03"));
     expect(getTodayIndex()).toBe(5);
   });
 });

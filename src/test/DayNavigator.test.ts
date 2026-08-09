@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { DayNavigator } from "../components/DayNavigator";
 
 describe("DayNavigator", () => {
-  it("mostra il giorno corrispondente all'indice selezionato", () => {
+  it("should display the day corresponding to the selected index", () => {
     render(
       React.createElement(DayNavigator, {
         selectedIndex: 0,
@@ -15,7 +15,7 @@ describe("DayNavigator", () => {
     expect(screen.getByText("Lunedi")).toBeInTheDocument();
   });
 
-  it("chiama onChange con l'indice successivo cliccando la freccia avanti", async () => {
+  it("should call onChange with the next index by clicking the forward arrow", async () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
     render(React.createElement(DayNavigator, { selectedIndex: 0, onChange }));
@@ -26,7 +26,7 @@ describe("DayNavigator", () => {
     expect(onChange).toHaveBeenCalledWith(1);
   });
 
-  it("fa il wrap-around da Domenica a Lunedi cliccando avanti", async () => {
+  it("should wrap around from Sunday to Monday by clicking the forward arrow", async () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
     render(React.createElement(DayNavigator, { selectedIndex: 6, onChange }));
@@ -37,7 +37,7 @@ describe("DayNavigator", () => {
     expect(onChange).toHaveBeenCalledWith(0);
   });
 
-  it("fa il wrap-around da Lunedi a Domenica cliccando indietro", async () => {
+  it("should wrap around from Monday to Sunday by clicking the backward arrow", async () => {
     const onChange = vi.fn();
     const user = userEvent.setup();
     render(React.createElement(DayNavigator, { selectedIndex: 0, onChange }));
