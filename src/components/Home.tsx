@@ -12,9 +12,7 @@ export function Home() {
   const { persone, loading: loadingPersone } = usePersone();
   const [personId, setPersonId] = useState<number | null>(null);
   const [selectedDayIndex, setSelectedDayIndex] = useState(getTodayIndex());
-
   const mealTypeCorrente = getMealTypeCorrente();
-
   const personaSelezionata =
     persone.find((p) => p.id === personId) ?? persone[0];
   const giornoId = selectedDayIndex + 1;

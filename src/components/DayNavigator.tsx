@@ -18,10 +18,10 @@ export function DayNavigator({ selectedIndex, onChange }: DayNavigatorProps) {
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 bg-gray-800 rounded-lg px-4 py-2">
+    <div className="flex items-center justify-between gap-4 rounded-lg px-4 py-2">
       <button
         onClick={prevDay}
-        className="w-11 h-11 flex items-center justify-center text-gray-400 hover:text-white"
+        className="w-11 h-11 flex items-center justify-center border-2 rounded-3xl border-amber-950 text-amber-950 "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,12 +38,12 @@ export function DayNavigator({ selectedIndex, onChange }: DayNavigatorProps) {
           />
         </svg>
       </button>
-      <span className="text-[15px] text-gray-200 font-medium">
+      <span className="text-[15px] h-11 px-20 rounded-2xl flex items-center bg-amber-950 text-gray-200 font-medium">
         {GIORNI[selectedIndex]}
       </span>
       <button
         onClick={nextDay}
-        className="w-11 h-11 flex items-center justify-center text-gray-400 hover:text-white"
+        className="w-11 h-11 flex items-center justify-center border-2 rounded-3xl border-amber-950 text-amber-950"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
