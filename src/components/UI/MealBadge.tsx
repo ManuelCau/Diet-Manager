@@ -7,7 +7,7 @@ type MealProps = {
 
 export function MealBadge({ meal, isOpen }: MealProps) {
   return (
-    <div className="bg-amber-300 flex items-center justify-between gap-2 rounded-lg px-4 py-2 w-full">
+    <div className="bg-amber-300 flex items-center justify-between gap-2 rounded-lg px-4 py-2 w-full shadow-lg shadow-amber-950/20 ">
       <h2 className="text-amber-950 rounded-lg py-1 px-4  font-semibold text-center flex items-center justify-center">
         {meal.nome}
       </h2>

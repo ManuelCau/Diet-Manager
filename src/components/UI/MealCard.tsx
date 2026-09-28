@@ -31,15 +31,15 @@ export function MealCard({
       >
         <MealBadge meal={{ nome: mealType }} isOpen={isOpen} />
       </button>
-      <div className=" ">
+      <div>
         <div
-          className={`grid transition-all duration-300 ease-in-out ${
+          className={`grid transition-all duration-300 ease-in-out  ${
             isOpen
-              ? "grid-rows-[1fr] opacity-100 mt-2 bg-linear-to-t from-white/40 to-white/10 border-2 border-amber-300 rounded-lg p-4 my-4 flex flex-col gap-1"
+              ? "grid-rows-[1fr] opacity-100 mt-2 bg-linear-to-t from-white/40 to-white/10 border-2 border-amber-300 rounded-lg p-4 my-4 flex flex-col gap-1 shadow-lg shadow-amber-950/20 animate-blurred-fade-in "
               : "grid-rows-[0fr] opacity-0"
           }`}
         >
-          <div className="overflow-hidden flex flex-col gap-1">
+          <div className="overflow-hidden flex flex-col gap-1 ">
             {items.map((item) => (
               <FoodItem
                 key={item.id}
@@ -54,3 +54,5 @@ export function MealCard({
     </div>
   );
 }
+
+//web 'tailwind-animations.com'

@@ -38,7 +38,10 @@ export function DayNavigator({ selectedIndex, onChange }: DayNavigatorProps) {
           />
         </svg>
       </button>
-      <span className="text-[15px] h-11 px-20 rounded-2xl flex items-center bg-amber-950 text-gray-200 font-medium">
+      <span
+        key={selectedIndex}
+        className="text-[15px] h-11 px-20 rounded-2xl flex items-center bg-amber-950 text-gray-200 font-medium shadow-lg shadow-amber-950/20 animate-pulsing"
+      >
         {GIORNI[selectedIndex]}
       </span>
       <button
